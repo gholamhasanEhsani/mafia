@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    direction: rtl;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    font-family: inherit;
+}
+
+#tab1, #tab1 > * {
+    transition: all 0.4s ease;
+}
+
+#tab1 {
+    text-align: center;
+    animation: t1-in 2s ease forwards;
+}
+
+@keyframes t1-in {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#tab1 h1 {
+    font-size: 5em;
+    max-width: 100%;
+    word-wrap: break-word;
+    padding-top: 20vh;
+}
+
+#tab1 h2 {
+    margin-top: 20px;
+}
+
+#tab1 button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15vh;
+    font-size: 1.5em;
+    width: 200px;
+    user-select: none;
+}
+
+#tab1 button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#tab1 p {
+    text-align: right;
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+    #tab1 h1 {
+        font-size: 4em;
+    }
+}
+
+@media (max-width: 992px) {
+    #tab1 h1 {
+        font-size: 4em;
+    }
+}
+
+@media (max-width: 768px) {
+    #tab1 h1 {
+        font-size: 3.5em;
+    }
+}
+
+@media (max-width: 576px) {
+    #tab1 h1 {
+        font-size: 3em;
+    }
+}
