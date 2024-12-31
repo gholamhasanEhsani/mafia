@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Godfather Gamemastering</title>
         <link rel="stylesheet" href="./style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     </head>
     <body>
         <main id="tab-content">
@@ -15,8 +16,10 @@
                 <p>طراحی شده با ❤️ توسط غلام حسن احسانی</p>
             </div>
             <div id="tab2" style="display: none;">
-                <h2>بازی</h2>
-                <p>اینجا می‌توانید بازی کنید.</p>
+                <h2>نام بازیکنان</h2>
+                <p>لطفاً نام بازیکنان را وارد کنید:</p>
+                <div id="player-container"></div>
+                <button id="next-step" style="display: none;">مرحله بعد</button>
             </div>
             <div id="tab3" style="display: none;">
                 <h2>تنظیمات</h2>

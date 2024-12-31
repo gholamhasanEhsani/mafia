@@ -19,6 +19,7 @@ body {
 main {
     width: 100%;
     height: 100%;
+    overflow: auto;
 }
 
 button {
@@ -38,9 +39,11 @@ button {
     0% {
         opacity: 0;
     }
+
     25% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -82,6 +85,100 @@ button {
     right: 20px;
     color: #666;
     font-size: 14px;
+}
+
+#tab2 {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 100%;
+    display: flex;
+    padding: 15px;
+}
+
+#tab2 h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+#tab2 p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+#player-container .player-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    gap: 20px;
+}
+
+#player-container .player-input input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    cursor: text;
+}
+
+#player-container .player-input button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+#player-container .player-input button img {
+    filter: invert(29%) sepia(98%) saturate(6378%) hue-rotate(356deg) brightness(97%) contrast(104%);
+    width: 20px;
+    height: 20px;
+}
+
+#player-container .player-input button:hover img {
+    filter: invert(29%) sepia(98%) saturate(6378%) hue-rotate(356deg) brightness(97%) contrast(104%) brightness(75%);
+}
+
+#player-container .player-input label {
+    width: 30px;
+    text-align: center;
+}
+
+.drag-handle {
+    cursor: grab;
+    width: 20px;
+    height: 20px;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+#next-step {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 0;
+    float: left;
+}
+
+#next-step:hover {
+    background-color: #0056b3;
+}
+
+#next-step:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 @media (max-width: 1200px) {
