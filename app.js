@@ -29,7 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const playerContainer = document.getElementById('player-container');
     const nextStepButton = document.getElementById('next-step');
 
-    const addPlayerInput = (playerCount) => {
+    const setCookie = (name, value, days) => {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    };
+
+    const getCookie = (name) => {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    };
+
+    const addPlayerInput = (playerCount, value = "") => {
         if (playerCount > 13) return;
 
         const playerInput = document.createElement('div');
@@ -37,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         playerInput.innerHTML = `
             <img src="https://gholamhasan.sirv.com/drag.png" alt="درگ" class="drag-handle">
             <label for="player${playerCount}">${playerCount}:</label>
-            <input type="text" name="player${playerCount}" id="player${playerCount}">
+            <input type="text" name="player${playerCount}" id="player${playerCount}" value="${value}">
             <button class="remove-player">
                 <img src="https://gholamhasan.sirv.com/clear-x.png" alt="حذف">
             </button>
@@ -65,6 +86,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const savePlayersToCookie = () => {
+        const playerInputs = playerContainer.querySelectorAll('.player-input input');
+        const players = Array.from(playerInputs).map(input => input.value).filter(value => value.trim() !== '');
+        setCookie('players', JSON.stringify(players), 7);
+    };
+
+    const loadPlayersFromCookie = () => {
+        const players = JSON.parse(getCookie('players') || '[]');
+        players.forEach((player, index) => addPlayerInput(index + 1, player));
+        checkAndAddInput();
+        toggleNextStepButton();
+    };
+
     const toggleNextStepButton = () => {
         const playerInputs = playerContainer.querySelectorAll('.player-input');
         const filledInputs = Array.from(playerInputs).filter(input => input.querySelector('input').value.trim() !== '');
@@ -82,12 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLabels();
             checkAndAddInput();
             toggleNextStepButton();
+            savePlayersToCookie();
         }
     };
 
     playerContainer.addEventListener('input', (e) => {
         checkAndAddInput();
         toggleNextStepButton();
+        savePlayersToCookie();
     });
 
     playerContainer.addEventListener('click', (e) => {
@@ -96,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLabels();
             checkAndAddInput();
             toggleNextStepButton();
+            savePlayersToCookie();
         }
     });
 
@@ -109,5 +146,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    addPlayerInput(1);
+    loadPlayersFromCookie();
 });
