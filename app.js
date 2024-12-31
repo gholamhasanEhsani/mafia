@@ -143,8 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
         animation: 150,
         onEnd: () => {
             updateLabels();
+            savePlayersToCookie();
         }
     });
 
     loadPlayersFromCookie();
+    addPlayerInput(1);
 });
