@@ -26,7 +26,7 @@ button {
     font-family: inherit;
 }
 
-#tab1, #tab1 > * {
+#tab1, #tab1 > *, #tab2, #tab2 > * {
     transition: all 0.4s ease;
 }
 
@@ -73,7 +73,7 @@ button {
     user-select: none;
 }
 
-#tab1 button:hover {
+button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
 }
@@ -94,6 +94,21 @@ button {
     min-height: 100%;
     display: flex;
     padding: 15px;
+    animation: t2-in 1s ease-in-out;
+}
+
+@keyframes t2-in {
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 #tab2 h2 {
@@ -159,6 +174,7 @@ button {
 .drag-handle:active {
     cursor: grabbing;
 }
+
 #next-step {
     background-color: #007bff;
     color: white;
