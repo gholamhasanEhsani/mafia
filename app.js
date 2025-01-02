@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (role === 'شهروند ساده' || role === 'مافیای ساده') {
             if (!selectedRoles.includes(role)) {
                 selectedRoles.push(role);
-                count = 1; // شروع شمارش از یک
+                count = 1;
             } else {
                 count++;
             }
@@ -193,7 +193,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+
+        if (['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role)) {
+            const neutralRoles = document.querySelectorAll('.role-button.neutral');
+            neutralRoles.forEach(neutralRole => {
+                if (neutralRole !== roleButton) {
+                    if (selectedRoles.includes(role)) {
+                        neutralRole.classList.add('disabled');
+                    } else {
+                        neutralRole.classList.remove('disabled');
+                    }
+                }
+            });
+        }
+
         updateSideRolesCount();
+        toggleCitizenRolesState();
+        toggleSimpleCitizenState();
+        toggleMatadorState();
+        toggleSaulGoodmanState();
+        toggleSimpleMafiaState();
     };
 
     const removeRole = (roleButton) => {
@@ -215,8 +234,107 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateSideRolesCount();
+        toggleCitizenRolesState();
+        toggleSimpleCitizenState();
+        toggleMatadorState();
+        toggleSaulGoodmanState();
+        toggleSimpleMafiaState();
     };
-    window.removeRole = removeRole;
+
+    const toggleCitizenRolesState = () => {
+        const watsonSelected = selectedRoles.includes('دکتر واتسون');
+        const citizenRoles = document.querySelectorAll('.role-button.citizen:not([data-role="دکتر واتسون"], [data-role="شهروند ساده"])');
+
+        citizenRoles.forEach(roleButton => {
+            if (watsonSelected) {
+                roleButton.classList.remove('disabled');
+            } else {
+                roleButton.classList.add('disabled');
+                selectedRoles = selectedRoles.filter(r => r !== roleButton.getAttribute('data-role'));
+                roleButton.classList.remove('selected');
+            }
+        });
+        updateSideRolesCount();
+    };
+
+    const toggleSimpleCitizenState = () => {
+        const citizenRoles = ['دکتر واتسون', 'لئون حرفه ای', 'همشهری کین', 'کنستانتین'];
+        const selectedCitizenRoles = citizenRoles.filter(role => selectedRoles.includes(role));
+        const simpleCitizenButton = document.querySelector('.role-button[data-role="شهروند ساده"]');
+
+        if (selectedCitizenRoles.length === 4) {
+            simpleCitizenButton.classList.remove('disabled');
+        } else {
+            simpleCitizenButton.classList.add('disabled');
+            simpleCitizenButton.setAttribute('data-count', 0);
+            selectedRoles = selectedRoles.filter(r => r !== 'شهروند ساده');
+            simpleCitizenButton.classList.remove('selected');
+            const removeButton = simpleCitizenButton.querySelector('img');
+            if (removeButton) {
+                removeButton.style.display = 'none';
+            }
+        }
+        updateSideRolesCount();
+    };
+
+    const toggleMatadorState = () => {
+        const godfatherSelected = selectedRoles.includes('پدرخوانده');
+        const matadorButton = document.querySelector('.role-button[data-role="ماتادور"]');
+
+        if (godfatherSelected) {
+            matadorButton.classList.remove('disabled');
+        } else {
+            matadorButton.classList.add('disabled');
+            selectedRoles = selectedRoles.filter(r => r !== 'ماتادور');
+            matadorButton.classList.remove('selected');
+        }
+        updateSideRolesCount();
+    };
+
+    const toggleSaulGoodmanState = () => {
+        const godfatherSelected = selectedRoles.includes('پدرخوانده');
+        const matadorSelected = selectedRoles.includes('ماتادور');
+        const simpleCitizenCount = parseInt(document.querySelector('.role-button[data-role="شهروند ساده"]').getAttribute('data-count')) || 0;
+        const saulGoodmanButton = document.querySelector('.role-button[data-role="ساول گودمن"]');
+
+        if (godfatherSelected && matadorSelected && simpleCitizenCount > 0) {
+            saulGoodmanButton.classList.remove('disabled');
+        } else {
+            saulGoodmanButton.classList.add('disabled');
+            selectedRoles = selectedRoles.filter(r => r !== 'ساول گودمن');
+            saulGoodmanButton.classList.remove('selected');
+        }
+        updateSideRolesCount();
+    };
+
+    const toggleSimpleMafiaState = () => {
+        const mafiaRoles = ['پدرخوانده', 'ماتادور', 'ساول گودمن'];
+        const selectedMafiaRoles = mafiaRoles.filter(role => selectedRoles.includes(role));
+        const simpleMafiaButton = document.querySelector('.role-button[data-role="مافیای ساده"]');
+
+        if (selectedMafiaRoles.length === 3) {
+            simpleMafiaButton.classList.remove('disabled');
+        } else {
+            simpleMafiaButton.classList.add('disabled');
+            simpleMafiaButton.setAttribute('data-count', 0);
+            selectedRoles = selectedRoles.filter(r => r !== 'مافیای ساده');
+            simpleMafiaButton.classList.remove('selected');
+            const removeButton = simpleMafiaButton.querySelector('img');
+            if (removeButton) {
+                removeButton.style.display = 'none';
+            }
+        }
+        updateSideRolesCount();
+    };
+
+    window.addEventListener('load', () => {
+        toggleCitizenRolesState();
+        toggleSimpleCitizenState();
+        toggleMatadorState();
+        toggleSaulGoodmanState();
+        toggleSimpleMafiaState();
+    });
+
     const updateSideRolesCount = () => {
         const simpleCitizenCount = parseInt(document.querySelector('.role-button[data-role="شهروند ساده"]').getAttribute('data-count')) || 0;
         const simpleMafiaCount = parseInt(document.querySelector('.role-button[data-role="مافیای ساده"]').getAttribute('data-count')) || 0;
@@ -269,4 +387,5 @@ document.addEventListener('DOMContentLoaded', () => {
             infoModal.style.display = 'none';
         }
     });
+    window.removeRole = removeRole;
 });

@@ -453,6 +453,25 @@ button:hover {
     cursor: pointer;
 }
 
+.role-button.disabled {
+    background-color: #d3d3d3 !important;
+    color: #b3b3b3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.role-button[data-count="0"] img {
+    display: none !important;
+}
+
+.role-button.citizen.has-role:not([data-count="0"]) {
+    background-color: #d4edda;
+}
+
+.role-button.mafia.has-role:not([data-count="0"]) {
+    background-color: #f8d7da;
+}
+
 @media (max-width: 1200px) {
     #tab1 h1 {
         font-size: 4em;
