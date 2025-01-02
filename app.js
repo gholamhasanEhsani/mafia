@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const showTab = (tab) => {
-        console.log("Showing tab:", tab);
         for (const key in tabs) {
             if (tabs.hasOwnProperty(key)) {
                 tabs[key].style.display = (key === tab) ? 'block' : 'none';
@@ -200,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const removeRole = (roleButton) => {
         const role = roleButton.getAttribute('data-role');
         let count = parseInt(roleButton.getAttribute('data-count')) || 0;
-        console.log(count);
 
         if (count > 1) {
             count--;
@@ -256,4 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     loadMaxRolesCountFromCookie();
+
+    const infoButton = document.getElementById('info-button');
+    const infoModal = document.getElementById('info-modal');
+    const closeButton = document.querySelector('.close-button');
+    infoButton.addEventListener('click', () => {
+        infoModal.style.display = 'block';
+    });
+    closeButton.addEventListener('click', () => {
+        infoModal.style.display = 'none';
+    });
+    window.addEventListener('click', (event) => {
+        if (event.target === infoModal) {
+            infoModal.style.display = 'none';
+        }
+    });
 });
