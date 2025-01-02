@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const showTab = (tab) => {
+        console.log("Showing tab:", tab);
         for (const key in tabs) {
             if (tabs.hasOwnProperty(key)) {
                 tabs[key].style.display = (key === tab) ? 'block' : 'none';
             }
         }
     };
+    window.showTab = showTab;
 
     const handleHashChange = () => {
         const hash = window.location.hash.substring(1);
@@ -26,8 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const startGameButton = document.getElementById('start-game');
     startGameButton.addEventListener('click', () => window.location.hash = '2');
 
-    const playerContainer = document.getElementById('player-container');
     const nextStepButton = document.getElementById('next-step');
+    nextStepButton.addEventListener('click', () => window.location.hash = '3');
+
+    const playerContainer = document.getElementById('player-container');
 
     const setCookie = (name, value, days) => {
         let expires = "";
@@ -148,5 +152,108 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadPlayersFromCookie();
-    addPlayerInput(1);
+    // tab 3
+    const citizenRolesContainer = document.getElementById('citizen-roles-container');
+    const mafiaRolesContainer = document.getElementById('mafia-roles-container');
+    const neutralRolesContainer = document.getElementById('neutral-roles-container');
+    const citizenRolesCount = document.getElementById('citizen-roles-count');
+    const mafiaRolesCount = document.getElementById('mafia-roles-count');
+    const neutralRolesCount = document.getElementById('neutral-roles-count');
+    const selectedRolesCount = document.getElementById('selected-roles-count');
+    const confirmRolesButton = document.getElementById('confirm-roles');
+    let selectedRoles = [];
+    let maxRolesCount = 0;
+
+    const toggleRoleSelection = (roleButton) => {
+        const role = roleButton.getAttribute('data-role');
+        const maxCount = roleButton.getAttribute('data-max');
+        let count = parseInt(roleButton.getAttribute('data-count')) || 0;
+
+        if (role === 'شهروند ساده' || role === 'مافیای ساده') {
+            if (!selectedRoles.includes(role)) {
+                selectedRoles.push(role);
+                count = 1; // شروع شمارش از یک
+            } else {
+                count++;
+            }
+            roleButton.setAttribute('data-count', count);
+            roleButton.classList.add('selected');
+
+            if (count >= 1) {
+                roleButton.classList.add('has-role');
+            }
+        } else {
+            const roleIndex = selectedRoles.indexOf(role);
+            if (roleIndex !== -1) {
+                selectedRoles.splice(roleIndex, 1);
+                roleButton.classList.remove('selected');
+            } else {
+                if (selectedRoles.length < maxRolesCount && (maxCount === '∞' || selectedRoles.filter(r => r === role).length < maxCount)) {
+                    selectedRoles.push(role);
+                    roleButton.classList.add('selected');
+                }
+            }
+        }
+        updateSideRolesCount();
+    };
+
+    const removeRole = (roleButton) => {
+        const role = roleButton.getAttribute('data-role');
+        let count = parseInt(roleButton.getAttribute('data-count')) || 0;
+        console.log(count);
+
+        if (count > 1) {
+            count--;
+            roleButton.setAttribute('data-count', count);
+        } else if (count === 1) {
+            count = 0;
+            roleButton.setAttribute('data-count', count);
+            roleButton.classList.remove('has-role');
+        }
+
+        if (count <= 1) {
+            roleButton.classList.remove('selected');
+            roleButton.querySelector('img').style.display = 'none';
+        }
+
+        updateSideRolesCount();
+    };
+    window.removeRole = removeRole;
+    const updateSideRolesCount = () => {
+        const simpleCitizenCount = parseInt(document.querySelector('.role-button[data-role="شهروند ساده"]').getAttribute('data-count')) || 0;
+        const simpleMafiaCount = parseInt(document.querySelector('.role-button[data-role="مافیای ساده"]').getAttribute('data-count')) || 0;
+
+        const citizenSelected = selectedRoles.filter(role => {
+            return ['دکتر واتسون', 'لئون حرفه ای', 'همشهری کین', 'کنستانتین'].includes(role);
+        }).length;
+
+        const mafiaSelected = selectedRoles.filter(role => {
+            return ['پدرخوانده', 'ماتادور', 'ساول گودمن'].includes(role);
+        }).length;
+
+        const neutralSelected = selectedRoles.filter(role => {
+            return ['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role);
+        }).length;
+
+        citizenRolesCount.textContent = `${citizenSelected + simpleCitizenCount} شهروند`;
+        mafiaRolesCount.textContent = `${mafiaSelected + simpleMafiaCount} مافیا`;
+        neutralRolesCount.textContent = `${neutralSelected} مستقل`;
+        selectedRolesCount.textContent = `تعداد نقش‌های انتخاب شده: ${citizenSelected + simpleCitizenCount + mafiaSelected + simpleMafiaCount + neutralSelected} از ${maxRolesCount}`;
+    };
+
+    [citizenRolesContainer, mafiaRolesContainer, neutralRolesContainer].forEach(container => {
+        container.addEventListener('click', (e) => {
+            if (e.target.classList.contains('role-button')) {
+                toggleRoleSelection(e.target);
+            }
+        });
+    });
+
+    const loadMaxRolesCountFromCookie = () => {
+        const players = JSON.parse(getCookie('players') || '[]');
+        maxRolesCount = players.length;
+        updateSideRolesCount();
+    };
+
+    loadMaxRolesCountFromCookie();
 });

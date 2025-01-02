@@ -10,7 +10,9 @@
     <body>
         <main id="tab-content">
             <div id="tab1">
-                <h1>پدر خوانده</h1>
+                <h1>
+                    پدر خوانده
+                </h1>
                 <h2>بازی ساخته شده برای حرفه ای ها</h2>
                 <button id="start-game">شروع بازی</button>
                 <p>طراحی شده با ❤️ توسط غلام حسن احسانی</p>
@@ -18,12 +20,60 @@
             <div id="tab2" style="display: none;">
                 <h2>نام بازیکنان</h2>
                 <p>لطفاً نام بازیکنان را وارد کنید:</p>
+                <hr>
                 <div id="player-container"></div>
-                <button id="next-step" style="display: none;">مرحله بعد</button>
+                <button id="next-step" style="display: none;">انتخاب نقش ها</button>
             </div>
             <div id="tab3" style="display: none;">
-                <h2>تنظیمات</h2>
-                <p>تنظیمات خود را اینجا مدیریت کنید.</p>
+                <button id="back-to-tab2" class="back-button" onclick="location.href = '#2';">
+                    <img src="https://gholamhasan.sirv.com/right.png" alt="بازگشت">
+                </button>
+                <h2>انتخاب نقش‌ها</h2>
+                <p>لطفاً نقش‌ها را انتخاب کنید:</p>
+                <hr>
+                <p id="selected-roles-count">تعداد نقش‌های انتخاب شده: 0 از 8</p>
+                <h3>شهروندان (
+                    <span id="citizen-roles-count">0 شهروند</span>)
+                </h3>
+                <div id="citizen-roles-container" class="roles-container">
+                    <div class="role-button citizen" data-role="دکتر واتسون" data-max="1">دکتر واتسون</div>
+                    <div class="role-button citizen" data-role="لئون حرفه ای" data-max="1">لئون حرفه ای</div>
+                    <div class="role-button citizen" data-role="همشهری کین" data-max="1">همشهری کین</div>
+                    <div class="role-button citizen" data-role="کنستانتین" data-max="1">کنستانتین</div>
+                    <div
+                        class="role-button citizen"
+                        data-role="شهروند ساده"
+                        data-max="∞"
+                        data-count="0"
+                    >
+                        <img src="https://gholamhasan.sirv.com/clear-x.png" alt="decrease" onclick="removeRole(this.parentElement)">شهروند ساده
+                    </div>
+                </div>
+                <h3>مافیاها (
+                    <span id="mafia-roles-count">0 مافیا</span>)
+                </h3>
+                <div id="mafia-roles-container" class="roles-container">
+                    <div class="role-button mafia" data-role="پدرخوانده" data-max="1">پدرخوانده</div>
+                    <div class="role-button mafia" data-role="ماتادور" data-max="1">ماتادور</div>
+                    <div class="role-button mafia" data-role="ساول گودمن" data-max="1">ساول گودمن</div>
+                    <div
+                        class="role-button mafia"
+                        data-role="مافیای ساده"
+                        data-max="∞"
+                        data-count="0"
+                    >
+                        <img src="https://gholamhasan.sirv.com/clear-x.png" alt="decrease" onclick="removeRole(this.parentElement)">مافیای ساده
+                    </div>
+                </div>
+                <h3>مستقل‌ها (
+                    <span id="neutral-roles-count">0 مستقل</span>)
+                </h3>
+                <div id="neutral-roles-container" class="roles-container">
+                    <div class="role-button neutral" data-role="نوستاراداموس" data-max="1">نوستاراداموس</div>
+                    <div class="role-button neutral" data-role="جک اسپارو" data-max="1">جک اسپارو</div>
+                    <div class="role-button neutral" data-role="شرلوک هولمز" data-max="1">شرلوک هولمز</div>
+                </div>
+                <button id="confirm-roles" style="display: none;">تایید نقش‌ها</button>
             </div>
         </main>
         <script src="./app.js"></script>

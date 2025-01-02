@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap");
 
-* {
+*, *:before, *:after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -26,16 +26,16 @@ button {
     font-family: inherit;
 }
 
-#tab1, #tab1 > *, #tab2, #tab2 > * {
+#tab1, #tab1 > *, #tab2, #tab2 > *, #tab3, #tab3 > * {
     transition: all 0.4s ease;
 }
 
 #tab1 {
     text-align: center;
-    animation: t1-in 2s ease forwards;
+    animation: fadein 2s ease forwards;
 }
 
-@keyframes t1-in {
+@keyframes fadein {
     0% {
         opacity: 0;
     }
@@ -94,21 +94,7 @@ button:hover {
     min-height: 100%;
     display: flex;
     padding: 15px;
-    animation: t2-in 1s ease-in-out;
-}
-
-@keyframes t2-in {
-    0% {
-        opacity: 0;
-    }
-
-    25% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+    animation: fadein 1s ease-in-out;
 }
 
 #tab2 h2 {
@@ -118,7 +104,11 @@ button:hover {
 
 #tab2 p {
     font-size: 1.2em;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+}
+
+#tab2 hr {
+    margin-bottom: 15px;
 }
 
 #player-container .player-input {
@@ -195,6 +185,209 @@ button:hover {
 #next-step:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+#tab3 {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    animation: fadein 1s ease-in-out;
+}
+
+#tab3 h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+#tab3 p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+#tab3 h3 {
+    font-size: 1.8em;
+    color: #003366;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#tab3 h3 span {
+    font-size: 1em;
+    color: #003366;
+}
+
+#selected-roles-count {
+    color: #003366;
+    font-size: 1.5em;
+    margin: 15px 0;
+}
+
+.roles-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.role-button {
+    padding: 10px 20px;
+    border: 2px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.role-button.citizen {
+    border-color: #28a745;
+}
+
+.role-button.mafia {
+    border-color: #dc3545;
+}
+
+.role-button.neutral {
+    border-color: #ffc107;
+}
+
+.role-button:hover {
+    transform: scale(1.05);
+}
+
+#confirm-roles {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#confirm-roles:hover {
+    background-color: #0056b3;
+}
+
+#confirm-roles:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.role-button {
+    position: relative;
+}
+
+.role-button.selected.citizen {
+    background-color: #d4edda;
+}
+
+.role-button.selected.mafia {
+    background-color: #f8d7da;
+}
+
+.role-button.selected.neutral {
+    background-color: #fff3cd;
+}
+
+.role-button[data-count]::after {
+    content: attr(data-count);
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 25px;
+    background-image: none;
+    display: none;
+}
+
+.role-button.selected:not([data-count])::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 5px;
+    background-image: url("https://gholamhasan.sirv.com/tick.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+.role-button[data-count]:not([data-count="0"])::after {
+    display: block;
+}
+
+.role-button.selected.citizen::before {
+    background-color: #D758BA;
+}
+
+.role-button.selected.mafia::before {
+    background-color: #23CABA;
+}
+
+.role-button.citizen[data-count]::after {
+    background-color: #28a745;
+}
+
+.role-button.mafia[data-count]::after {
+    background-color: #dc3545;
+}
+
+.role-button[data-count] {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.role-button[data-count] img {
+    width: 20px;
+    display: none;
+    filter: invert(29%) sepia(98%) saturate(6378%) hue-rotate(356deg) brightness(97%) contrast(104%) brightness(75%);
+}
+
+.role-button.has-role img {
+    display: block !important;
+}
+
+.role-button.selected.neutral::before {
+    background-color: #003EF8;
+}
+
+.back-button {
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    background: transparent !important;
+    transition: none !important;
+    transform: none !important;
+}
+
+.back-button img {
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
 }
 
 @media (max-width: 1200px) {
