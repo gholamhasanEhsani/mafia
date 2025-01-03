@@ -362,10 +362,6 @@ button:hover {
     filter: invert(29%) sepia(98%) saturate(6378%) hue-rotate(356deg) brightness(97%) contrast(104%) brightness(75%);
 }
 
-.role-button.has-role img {
-    display: block !important;
-}
-
 .role-button.selected.neutral::before {
     background-color: #003EF8;
 }
@@ -460,16 +456,20 @@ button:hover {
     pointer-events: none;
 }
 
-.role-button[data-count="0"] img {
-    display: none !important;
-}
-
 .role-button.citizen.has-role:not([data-count="0"]) {
     background-color: #d4edda;
 }
 
 .role-button.mafia.has-role:not([data-count="0"]) {
     background-color: #f8d7da;
+}
+
+.role-button[data-count="0"] img {
+    display: none !important;
+}
+
+.role-button:not([data-count="0"]) img {
+    display: block !important;
 }
 
 @media (max-width: 1200px) {
