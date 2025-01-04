@@ -490,9 +490,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     })
                 });
-                updateSideRolesCount();
-                selectedRoles = rolesData;
+                selectedRoles = getRolesFromCookie();
             }
+            updateSideRolesCount();
+            toggleNextStepButton();
         }
     }
     loadTabThreeData();
