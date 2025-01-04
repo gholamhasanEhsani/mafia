@@ -522,6 +522,26 @@ button:hover {
     background-color: #777;
 }
 
+.role-display-button.viewed {
+    opacity: 0.5;
+}
+
+.start-game-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+}
+
+.start-game-button:hover {
+    background-color: #218838;
+}
+
 /* Popup Modal */
 #role-details-modal {
     display: none;
@@ -547,6 +567,14 @@ button:hover {
 #role-details-modal > div {
     width: 90%;
     max-width: 480px;
+}
+
+#role-details-modal img {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
 }
 
 @media (max-width: 1200px) {

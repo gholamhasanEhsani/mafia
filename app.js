@@ -216,17 +216,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        if (['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role)) {
+        if (['نوستراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role)) {
             const neutralRoles = document.querySelectorAll('.role-button.neutral');
-            neutralRoles.forEach(neutralRole => {
-                if (neutralRole !== roleButton) {
-                    if (selectedRoles.includes(role)) {
+            const selectedRole = document.querySelector(`.role-button[data-role="${role}"]`);
+            if (selectedRole.classList.contains('selected')) {
+                neutralRoles.forEach(neutralRole => {
+                    neutralRole.classList.remove('selected');
+                    neutralRole.classList.remove('disabled');
+                });
+            } else {
+                neutralRoles.forEach(neutralRole => {
+                    if (neutralRole.getAttribute('data-role') !== role) {
+                        neutralRole.classList.remove('selected');
                         neutralRole.classList.add('disabled');
                     } else {
+                        neutralRole.classList.add('selected');
                         neutralRole.classList.remove('disabled');
                     }
-                }
-            });
+                });
+            }
         }
 
         updateSideRolesCount();
@@ -371,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).length;
 
         const neutralSelected = selectedRoles.filter(role => {
-            return ['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role);
+            return ['نوستراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role);
         }).length;
 
         citizenRolesCount.textContent = `${citizenSelected + simpleCitizenCount} شهروند`;
@@ -403,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).length;
 
         const neutralSelected = selectedRoles.filter(role => {
-            return ['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role);
+            return ['نوستراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role);
         }).length;
 
         citizenRolesCount.textContent = `${citizenSelected + simpleCitizenCount} شهروند`;
@@ -509,7 +517,11 @@ document.addEventListener('DOMContentLoaded', () => {
             player,
             role: roles[index]
         }));
-
+        const assigned = {}
+        players.forEach((player, index) => {
+            assigned[player] = roles[index];
+        });
+        setCookie('assigned', JSON.stringify(assigned), 365);
         displayAssignedRoles(roleDistribution);
     }
 
@@ -543,36 +555,82 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayAssignedRoles = (roleDistribution) => {
         const resultDiv = document.getElementById('assigned-roles-result');
         resultDiv.innerHTML = '';
-        roleDistribution.forEach(distribution => {
+        roleDistribution.forEach((distribution, index) => {
             const button = document.createElement('button');
             button.textContent = distribution.player;
             button.classList.add('role-display-button');
-            button.onclick = () => showRoleDetails(distribution);
+            button.setAttribute('data-role', distribution.role);
+            button.setAttribute('id', `role-button-${index}`);
+            button.onclick = () => showRoleDetails(distribution, `role-button-${index}`);
             resultDiv.appendChild(button);
         });
     }
 
-    const showRoleDetails = (distribution) => {
+    const showRoleDetails = (distribution, buttonId) => {
         const modal = document.getElementById('role-details-modal');
         const modalContent = document.getElementById('role-details-content');
-        modalContent.innerHTML = `<h3 style="color: ${getRoleColor(distribution.role)}">${distribution.role}</h3><p>${roleDescriptions[distribution.role] || 'توضیحات موجود نیست.'}</p>`;
+        const imageUrl = getRoleImageURL(distribution.role);
+        modalContent.innerHTML = `
+                <img src="${imageUrl}" alt="${distribution.role}">
+                <h3 style="color: #333">${distribution.player}: <span style="color: ${getRoleColor(distribution.role)}">${distribution.role}</span></h3>
+                <p>${roleDescriptions[distribution.role] || 'توضیحات موجود نیست.'}</p>
+            `;
         modal.style.display = 'block';
+
+        const roleButton = document.getElementById(buttonId);
+        if (roleButton) {
+            roleButton.classList.add('viewed');
+        }
     }
 
     const getRoleColor = role => {
         const citizenRoles = ['دکتر واتسون', 'همشهری کین', 'کنستانتین', 'لئون حرفه ای', 'شهروند ساده'];
         const mafiaRoles = ['ماتادور', 'ساول گودمن', 'پدرخوانده', 'مافیای ساده'];
-        const neutralRoles = ['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'];
+        const neutralRoles = ['نوستراداموس', 'جک اسپارو', 'شرلوک هولمز'];
         if (citizenRoles.includes(role)) {
-            return '#28a745';
+            return '#007';
         } else if (mafiaRoles.includes(role)) {
-            return '#dc3545';
+            return '#b00';
         } else if (neutralRoles.includes(role)) {
-            return '#ffc107';
+            return '#ffb000';
         } else {
             return '#000000';
         }
     }
+
+    const getRoleImageURL = (role) => {
+        const roleImageURLs = {
+            "ماتادور": "https://gholamhasan.sirv.com/mafia-images/1.png",
+            "لئون حرفه ای": "https://gholamhasan.sirv.com/mafia-images/2.png",
+            "همشهری کین": "https://gholamhasan.sirv.com/mafia-images/3.png",
+            "پدرخوانده": "https://gholamhasan.sirv.com/mafia-images/4.png",
+            "دکتر واتسون": "https://gholamhasan.sirv.com/mafia-images/5.png",
+            "کنستانتین": "https://gholamhasan.sirv.com/mafia-images/6.png",
+            "ساول گودمن": "https://gholamhasan.sirv.com/mafia-images/7.png",
+            "نوستراداموس": "https://gholamhasan.sirv.com/mafia-images/11.png"
+        };
+
+        const citizenImages = [
+            "https://gholamhasan.sirv.com/mafia-images/8.png",
+            "https://gholamhasan.sirv.com/mafia-images/9.png",
+            "https://gholamhasan.sirv.com/mafia-images/10.png"
+        ];
+
+        if (role == "شهروند ساده") {
+            const randomIndex = Math.floor(Math.random() * citizenImages.length);
+            return citizenImages[randomIndex];
+        }
+
+        return roleImageURLs[role] || "https://gholamhasan.sirv.com/mafia-images/default.png";
+    }
+
+    document.getElementById('start-game-button').onclick = () => {
+        const assigned = JSON.parse(getCookie("assigned") || "{}");
+        if (Object.keys(assigned).length > 0) {
+            location.href = "./play/";
+        }
+    };
+
     const closeModal = () => {
         const modal = document.getElementById('role-details-modal');
         modal.style.display = 'none';
