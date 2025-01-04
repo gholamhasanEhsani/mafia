@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = {
         '1': document.getElementById('tab1'),
         '2': document.getElementById('tab2'),
-        '3': document.getElementById('tab3')
+        '3': document.getElementById('tab3'),
+        '4': document.getElementById('tab4')
     };
     const citizenRolesContainer = document.getElementById('citizen-roles-container');
     const mafiaRolesContainer = document.getElementById('mafia-roles-container');
@@ -450,6 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmRolesButton.onclick = () => {
         setCookie('roles', JSON.stringify(selectedRoles), 365);
         window.location.hash = '4';
+        AssignRoles();
     }
     const getRolesFromCookie = () => JSON.parse(getCookie("roles") || "[]");
     const loadTabThreeData = () => {
@@ -494,4 +496,86 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     loadTabThreeData();
+
+    const AssignRoles = () => {
+        const players = JSON.parse(getCookie('players') || '[]');
+        let roles = getRolesFromCookie();
+        if (!roles || !players || roles.length <= 0 || players.length <= 0 || roles.length != players.length) {
+            return false;
+        }
+        roles = shuffleArray(roles);
+        const roleDistribution = players.map((player, index) => ({
+            player,
+            role: roles[index]
+        }));
+
+        displayAssignedRoles(roleDistribution);
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    let roleDescriptions = {};
+
+    fetch('https://gholamhasan.sirv.com/desc.json')
+        .then(response => response.json())
+        .then(data => {
+            roleDescriptions = data;
+            const infoModalContent = document.getElementById('info-modal-content-3');
+            infoModalContent.innerHTML = '';
+            Object.entries(roleDescriptions).forEach(([role, description]) => {
+                const roleHeading = document.createElement('h3');
+                roleHeading.textContent = role;
+                const roleDescription = document.createElement('p');
+                roleDescription.textContent = description;
+                infoModalContent.appendChild(roleHeading);
+                infoModalContent.appendChild(roleDescription);
+            });
+        })
+        .catch(error => console.error('Error loading role descriptions:', error));
+
+    const displayAssignedRoles = (roleDistribution) => {
+        const resultDiv = document.getElementById('assigned-roles-result');
+        resultDiv.innerHTML = '';
+        roleDistribution.forEach(distribution => {
+            const button = document.createElement('button');
+            button.textContent = distribution.player;
+            button.classList.add('role-display-button');
+            button.onclick = () => showRoleDetails(distribution);
+            resultDiv.appendChild(button);
+        });
+    }
+
+    const showRoleDetails = (distribution) => {
+        const modal = document.getElementById('role-details-modal');
+        const modalContent = document.getElementById('role-details-content');
+        modalContent.innerHTML = `<h3 style="color: ${getRoleColor(distribution.role)}">${distribution.role}</h3><p>${roleDescriptions[distribution.role] || 'توضیحات موجود نیست.'}</p>`;
+        modal.style.display = 'block';
+    }
+
+    const getRoleColor = role => {
+        const citizenRoles = ['دکتر واتسون', 'همشهری کین', 'کنستانتین', 'لئون حرفه ای', 'شهروند ساده'];
+        const mafiaRoles = ['ماتادور', 'ساول گودمن', 'پدرخوانده', 'مافیای ساده'];
+        const neutralRoles = ['نوستاراداموس', 'جک اسپارو', 'شرلوک هولمز'];
+        if (citizenRoles.includes(role)) {
+            return '#28a745';
+        } else if (mafiaRoles.includes(role)) {
+            return '#dc3545';
+        } else if (neutralRoles.includes(role)) {
+            return '#ffc107';
+        } else {
+            return '#000000';
+        }
+    }
+    const closeModal = () => {
+        const modal = document.getElementById('role-details-modal');
+        modal.style.display = 'none';
+    }
+    window.closeModal = closeModal;
+    AssignRoles();
 });
