@@ -203,41 +203,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (roleIndex !== -1) {
                 selectedRoles.splice(roleIndex, 1);
                 roleButton.classList.remove('selected');
-                const removeButton = roleButton.querySelector('.remove-button');
-                if (removeButton) {
-                    removeButton.style.display = 'none';
-                }
             } else {
                 if (selectedRoles.length < maxRolesCount) {
                     selectedRoles.push(role);
                     roleButton.classList.add('selected');
-                    const removeButton = roleButton.querySelector('.remove-button');
-                    if (removeButton) {
-                        removeButton.style.display = 'inline';
-                    }
                 }
             }
         }
 
         if (['نوستراداموس', 'جک اسپارو', 'شرلوک هولمز'].includes(role)) {
-            const neutralRoles = document.querySelectorAll('.role-button.neutral');
+            const neutralButtons = document.querySelectorAll('.role-button.neutral');
             const selectedRole = document.querySelector(`.role-button[data-role="${role}"]`);
-            if (selectedRole.classList.contains('selected')) {
-                neutralRoles.forEach(neutralRole => {
-                    neutralRole.classList.remove('selected');
-                    neutralRole.classList.remove('disabled');
-                });
-            } else {
-                neutralRoles.forEach(neutralRole => {
-                    if (neutralRole.getAttribute('data-role') !== role) {
-                        neutralRole.classList.remove('selected');
-                        neutralRole.classList.add('disabled');
+            neutralButtons.forEach(neutralButton => {
+                if (selectedRole != neutralButton) {
+                    neutralButton.classList.remove('selected');
+
+                    if (selectedRole.classList.contains('selected')) {
+                        neutralButton.classList.add('disabled');
                     } else {
-                        neutralRole.classList.add('selected');
-                        neutralRole.classList.remove('disabled');
+                        neutralButton.classList.remove('disabled');
                     }
-                });
-            }
+                }
+            });
         }
 
         updateSideRolesCount();
