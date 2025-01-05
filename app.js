@@ -17,18 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let maxRolesCount = 0;
 
     const getCookie = name => {
+        name = encodeURIComponent(name);
         const nameEQ = name + "=";
         const ca = document.cookie.split(';');
         for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
             while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
         }
         return null;
     };
 
     const setCookie = (name, value, days) => {
         let expires = "";
+        name = encodeURIComponent(name);
+        value = encodeURIComponent(value);
         if (days) {
             const date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
