@@ -635,4 +635,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     AssignRoles();
+
+    // Preload
+    const imageURLs = [
+        "https://gholamhasan.sirv.com/mafia-images/1.png",
+        "https://gholamhasan.sirv.com/mafia-images/2.png",
+        "https://gholamhasan.sirv.com/mafia-images/3.png",
+        "https://gholamhasan.sirv.com/mafia-images/4.png",
+        "https://gholamhasan.sirv.com/mafia-images/5.png",
+        "https://gholamhasan.sirv.com/mafia-images/6.png",
+        "https://gholamhasan.sirv.com/mafia-images/7.png",
+        "https://gholamhasan.sirv.com/mafia-images/8.png",
+        "https://gholamhasan.sirv.com/mafia-images/9.png",
+        "https://gholamhasan.sirv.com/mafia-images/10.png",
+        "https://gholamhasan.sirv.com/mafia-images/11.png",
+        "https://gholamhasan.sirv.com/drag.png",
+        "https://gholamhasan.sirv.com/clear-x.png",
+        "https://gholamhasan.sirv.com/info.png",
+        "https://gholamhasan.sirv.com/right.png",
+        "https://gholamhasan.sirv.com/tick.png",
+        "https://gholamhasan.sirv.com/default.png"
+    ];
+    
+    const preloadImages = (urls) => {
+        urls.forEach(url => {
+            const img = new Image();
+            img.src = url;
+        });
+    };
+    
+    window.onload = () => preloadImages(imageURLs);
 });
