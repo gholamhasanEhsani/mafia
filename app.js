@@ -626,5 +626,13 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
     }
     window.closeModal = closeModal;
+    window.onclick = (event) => {
+        const modals = document.querySelectorAll('.info-modal');
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
     AssignRoles();
 });
