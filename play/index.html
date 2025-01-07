@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fa">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Godfather Gamemastering - Day Phase</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>روز معارفه</h1>
+            <div class="accordion" id="accordion-roles">
+                <button class="accordion-button" id="button-roles">
+                    نقش‌ها
+                    <span class="accordion-icon">-</span>
+                </button>
+                <div class="accordion-content" id="content-roles">
+                    <!-- دکمه‌های نقش‌ها اینجا قرار می‌گیرند --></div>
+            </div>
+            <div class="accordion" id="accordion-timer">
+                <button class="accordion-button" id="button-timer">
+                    زمان‌سنج
+                    <span class="accordion-icon">-</span>
+                </button>
+                <div class="accordion-content" id="content-timer">
+                    <div class="timer" id="normal-speech">
+                        <div class="timer-controls">
+                            <input
+                                type="number"
+                                value="60"
+                                min="1"
+                                id="normal-speech-input"
+                            >
+                            <button class="timer-button" onclick="toggleTimer('normal-speech')">صحبت عادی</button>
+                        </div>
+                        <div class="timer-display" id="normal-speech-display">60</div>
+                    </div>
+                    <div class="timer" id="challenge">
+                        <div class="timer-controls">
+                            <input
+                                type="number"
+                                value="45"
+                                min="1"
+                                id="challenge-input"
+                            >
+                            <button class="timer-button" onclick="toggleTimer('challenge')">چالش</button>
+                        </div>
+                        <div class="timer-display" id="challenge-display">45</div>
+                    </div>
+                    <div class="timer" id="introduction">
+                        <div class="timer-controls">
+                            <input
+                                type="number"
+                                value="25"
+                                min="1"
+                                id="introduction-input"
+                            >
+                            <button class="timer-button" onclick="toggleTimer('introduction')">معارفه</button>
+                        </div>
+                        <div class="timer-display" id="introduction-display">25</div>
+                    </div>
+                    <div class="timer" id="duel">
+                        <div class="timer-controls">
+                            <input
+                                type="number"
+                                value="30"
+                                min="1"
+                                id="duel-input"
+                            >
+                            <button class="timer-button" onclick="toggleTimer('duel')">دوئل</button>
+                        </div>
+                        <div class="timer-display" id="duel-display">30</div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion" id="accordion-sounds">
+                <button class="accordion-button" id="button-sounds">
+                    صداها و افکت‌های صوتی
+                    <span class="accordion-icon">-</span>
+                </button>
+                <div class="accordion-content" id="content-sounds">
+                    <h3>صداهای پایان زمان</h3>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/bell-98033.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/time-10840.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <h3>آهنگ های شب</h3>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-24868.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-28450.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-33030.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-37327.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-55629.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-59094.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-64747.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-65691.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-70424.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-74392.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-77928.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-84637.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-92111.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-93576.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-95826.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-96739.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/night-97216.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <h3>صداهای شات گلوله</h3>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-10069.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-13207.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-14566.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-14649.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-23053.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-39722.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-39789.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-39791.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-43852.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-90286.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-94951.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/shot-98831.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion" id="accordion-operations">
+                <button class="accordion-button" id="button-operations">
+                    عملیات‌ها
+                    <span class="accordion-icon">-</span>
+                </button>
+                <div class="accordion-content" id="content-operations">
+                    <div class="operations">
+                        <button class="operation-btn night-phase">ورود به فاز شب</button>
+                        <button class="operation-btn voting">رای گیری</button>
+                        <button class="operation-btn final-move">انتخاب کارت حرکت آخر</button>
+                        <button class="operation-btn death-lottery">قرعه مرگ</button>
+                        <button class="operation-btn talk-select">انتخاب سر صحبت</button>
+                        <button class="operation-btn status-report">اعلام وضعیت</button>
+                        <button class="operation-btn disciplinary-actions">اقدامات انضباطی</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
