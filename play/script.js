@@ -149,4 +149,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     setCookie("playersState", JSON.stringify(playersState), 7);
+
+    const preloadSounds = (sounds) => {
+        sounds.forEach(sound => {
+            const audio = new Audio(`../audio/${sound}`);
+            audio.preload = 'auto';
+        });
+    };
+
+    const sounds = ['bell-98033.mp3', 'shot-10069.mp3', 'shot-13207.mp3', 'shot-14566.mp3', 'shot-14649.mp3', 'shot-23053.mp3', 'shot-39722.mp3', 'shot-39789.mp3', 'shot-39791.mp3', 'shot-43852.mp3', 'shot-90286.mp3', 'shot-94951.mp3', 'shot-98831.mp3', 'time-10840.mp3'];
+
+    preloadSounds(sounds);
 });
