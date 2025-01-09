@@ -14,7 +14,13 @@ const getCookie = (name) => {
     return null;
 };
 
+const setCookie = (name, value, days) => {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+};
+
 const assignedRoles = JSON.parse(getCookie("assigned") || "{}");
+const players = Object.keys(assignedRoles);
 
 const timers = {};
 const bellAudio = new Audio('../audio/bell-98033.mp3');
@@ -35,7 +41,7 @@ const resetTimers = () => {
 const toggleTimer = (id, fixedTime = null) => {
     const button = document.querySelector(`#${id} .timer-button`);
     const initialText = button.dataset.initialText;
-    const input = fixedTime === null ? document.getElementById(`${id}-input`).value : fixedTime;
+    const input = fixedTime == null ? document.getElementById(`${id}-input`).value : fixedTime;
     const display = document.getElementById(`${id}-display`);
 
     if (timers[id]) {
@@ -62,7 +68,7 @@ const toggleTimer = (id, fixedTime = null) => {
             } else {
                 clearInterval(timers[id]);
                 display.classList.remove('almost-done', 'running');
-                bellAudio.play().catch(error => console.error('Audio playback failed:', error));زمان
+                bellAudio.play().catch(error => console.error('Audio playback failed:', error));
                 resetTimers();
             }
         }, 1000);
@@ -84,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rolesContainer = document.getElementById("content-roles");
     rolesContainer.classList.add('role-container');
 
-    if (Object.keys(assignedRoles).length > 0) {
+    if (players.length > 0) {
         rolesContainer.innerHTML = Object.entries(assignedRoles).map(([player, role]) => {
             let roleClass = "";
             if (citizenRoles.includes(role)) {
@@ -127,4 +133,20 @@ document.addEventListener("DOMContentLoaded", () => {
             button.click();
         }
     });
+
+    let isIntroduction = getCookie("isIntroduction");
+    if (isIntroduction == null || isIntroduction != "false") {
+        setCookie("isIntroduction", "true", 7);
+        isIntroduction = true;
+    } else {
+        isIntroduction = false;
+    }
+
+    let playersState = JSON.parse(getCookie("playersState") || "{}");
+    players.forEach(player => {
+        if (!playersState[player]) {
+            playersState[player] = "alive";
+        }
+    });
+    setCookie("playersState", JSON.stringify(playersState), 7);
 });
