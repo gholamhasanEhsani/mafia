@@ -42,7 +42,6 @@ body {
     margin-bottom: 30px;
     font-size: 2em;
     color: DarkBlue;
-
 }
 
 @keyframes fadeIn {
@@ -242,7 +241,7 @@ audio {
     width: 100%;
 }
 
-.accordion-sounds h3 {
+#content-sounds h3 {
     margin-bottom: 20px;
 }
 
@@ -295,4 +294,13 @@ audio {
 
 .status-report {
     background-color: DarkSlateGray;
+}
+
+.operation-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.operation-btn:disabled:hover {
+    transform: none;
 }

@@ -86,6 +86,8 @@ document.querySelectorAll('.timer-button').forEach(button => {
     });
 });
 
+const goVote = () => 'false' == getCookie('isIntroduction') && (location.href = '../voting/');
+
 document.addEventListener("DOMContentLoaded", () => {
     const rolesContainer = document.getElementById("content-roles");
     rolesContainer.classList.add('role-container');
@@ -129,9 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.textContent = "+";
             }
         });
-        if (i == 2) {
-            button.click();
-        }
     });
 
     let isIntroduction = getCookie("isIntroduction");
@@ -150,14 +149,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     setCookie("playersState", JSON.stringify(playersState), 7);
 
-    const preloadSounds = (sounds) => {
-        sounds.forEach(sound => {
-            const audio = new Audio(`../audio/${sound}`);
-            audio.preload = 'auto';
-        });
-    };
+    const votingBtn = document.querySelector(".operation-btn.voting");
+    const statusBtn = document.querySelector(".operation-btn.status-report");
+    const nightBtn = document.querySelector(".operation-btn.night-phase");
 
-    const sounds = ['bell-98033.mp3', 'shot-10069.mp3', 'shot-13207.mp3', 'shot-14566.mp3', 'shot-14649.mp3', 'shot-23053.mp3', 'shot-39722.mp3', 'shot-39789.mp3', 'shot-39791.mp3', 'shot-43852.mp3', 'shot-90286.mp3', 'shot-94951.mp3', 'shot-98831.mp3', 'time-10840.mp3'];
+    if (isIntroduction == false) {
+        votingBtn.disabled = false;
+        statusBtn.disabled = false;
+        nightBtn.disabled = true;
+    } else {
+        votingBtn.disabled = true;
+        statusBtn.disabled = true;
+        nightBtn.disabled = false;
+    }
 
-    preloadSounds(sounds);
+    const talkSelectBtn = document.querySelector(".operation-btn.talk-select");
+    talkSelectBtn.onclick = () => {
+        talkSelectBtn.textContent = players[Math.floor(Math.random()*players.length)];
+        setTimeout(() => {
+            talkSelectBtn.textContent = "انتخاب سر صحبت";
+        }, 5000);
+    }
 });

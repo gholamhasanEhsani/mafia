@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap");
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all .3s ease;
+}
+
+button {
+    font-family: inherit;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+}
+
+img {
+    user-select: none;
+}
+
+input {
+    font-family: inherit;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    direction: rtl;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+.container > h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: DarkBlue;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+p#minimum {
+    font-size: 1.1em;
+    text-align: center;
+    font-weight: bold;
+}
+
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card {
+    width: 48%;
+    min-width: 175px;
+    height: 210px;
+    border-radius: 10px;
+    border: 2px solid #111;
+    margin-top: 10px;
+    background: transparent;
+    text-align: center;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.card .count {
+    font-size: 6em;
+    color: #111;
+    line-height: 1.1;
+}
+
+.card .count.danger {
+    color: #E00;
+}
+
+.card .name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.card button {
+    font-size: 2em;
+    border: none;
+    margin: 0;
+    width: 50%;
+    padding: 10px;
+    background: transparent;
+    border-radius: 10px;
+}
+
+.card button:hover {
+    background: SeaShell;
+    color: #000;
+}
+
+.card .vote {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.operations {
+    margin-top: 20px;
+}
+
+.operation-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.operation-btn:hover {
+    transform: scale(1.1);
+}
+
+.night-phase {
+    background-color: DarkBlue;
+}
+
+.defensive-phase {
+    background: #f00;
+    display: none;
+}

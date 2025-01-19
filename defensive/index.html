@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fa">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Godfather Gamemastering - Defensive Phase</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>فاز دفاعیه</h1>
+            <div class="accordion">
+                <button class="accordion-button" id="button-sounds">
+                    صدا ها و افکت های صوتی
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-sounds" style="max-height: 0;">
+                    <h3>صداهای پایان زمان</h3>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/bell-98033.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="../audio/time-10840.mp3" type="audio/mpeg">
+                            مرورگر شما از پخش صوتی پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion">
+                <button class="accordion-button" id="button-timer">
+                    زمان سنج
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-timer" style="max-height: 0;">
+                    <div class="timer" id="defensive-speech">
+                        <div class="timer-controls">
+                            <input
+                                type="number"
+                                value="80"
+                                min="1"
+                                max="120"
+                                id="defensive-speech-input"
+                            >
+                            <button class="timer-button" onclick="toggleTimer('defensive-speech')">دفاعیه</button>
+                        </div>
+                        <div class="timer-display" id="defensive-speech-display">80</div>
+                    </div>
+                    <div class="timer" id="duel">
+                        <div class="timer-controls">
+                            <input
+                                type="number"
+                                value="30"
+                                min="1"
+                                id="duel-input"
+                            >
+                            <button class="timer-button" onclick="toggleTimer('duel')">دوئل</button>
+                        </div>
+                        <div class="timer-display" id="duel-display">30</div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion">
+                <button class="accordion-button" id="button-vote">
+                    رای گیری نهایی
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-vote" style="max-height: 0;">
+                    <div id="cards"></div>
+                </div>
+            </div>
+            <div class="operations">
+                <button class="operation-btn night-phase" id="night-phase">ورود به فاز شب</button>
+                <button class="operation-btn death-lottery" id="death-lottery" style="display: none;" onclick="showDeathLotteryPopup()">قرعه مرگ</button>
+                <button class="operation-btn final-move" id="final-move" style="display: none;">کارت حرکت آخر</button>
+                <button class="operation-btn disciplinary-actions" id="disciplinary-actions" onclick="showDisciplinaryPopup()">اقدامات انضباطی</button>
+            </div>
+        </div>
+        <div id="overlay" class="overlay" style="display: none;"></div>
+        <div id="disciplinary-popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h2>اقدامات انضباطی</h2>
+                <button class="disciplinary-btn" onclick="showVotingRightsPopup()">گرفتن حق رای</button>
+                <button class="disciplinary-btn" onclick="showKickPopup()">کیک انضباطی</button>
+                <button class="close-btn" onclick="closePopup()">بستن</button>
+            </div>
+        </div>
+        <div id="voting-rights-popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h2>گرفتن حق رای</h2>
+                <div id="players-buttons"></div>
+                <button class="close-btn" onclick="closeVotingRightsPopup()">بستن</button>
+            </div>
+        </div>
+        <div id="kick-popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h2>کیک کردن</h2>
+                <div id="kick-players-buttons"></div>
+                <div class="button-container">
+                    <button class="confirm-btn" id="confirm-kick-btn" disabled>کیک بازیکن</button>
+                    <button class="close-btn" onclick="closeKickPopup()" style="width: 48%;">بستن</button>
+                </div>
+            </div>
+        </div>
+        <div id="death-lottery-popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h2>قرعه مرگ</h2>
+                <div id="lottery-player" class="lottery-box">
+                    <p>کدام بازیکن قرعه را انتخاب می‌کند؟</p>
+                    <button id="lottery-player-1" class="lottery-player">بازیکن اول</button>
+                    <button id="lottery-player-2" class="lottery-player" style="margin-right: 5px;">بازیکن دوم</button>
+                </div>
+                <div id="lottery-select" class="lottery-box">
+                    <p>یک کارت را انتخاب کنید.</p>
+                    <button id="lottery-card-1" class="lottery-card">کارت اول</button>
+                    <button id="lottery-card-2" class="lottery-card" style="margin-right: 5px;">کارت دوم</button>
+                </div>
+                <div id="lottery-result"></div>
+                <button class="operation-btn lottery-btn final-move" disabled>کارت حرکت آخر</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
